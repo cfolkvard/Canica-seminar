@@ -1,0 +1,1676 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI-seminar – Canica-selskapene | 25. mars 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --stone: #0d2240;
+    --stone-mid: #1a3a5c;
+    --warm-off: #cadcfc;
+    --cream: #faf7f4;
+    --gold: #b8924a;
+    --gold-light: #d4aa6a;
+    --gold-pale: #f2e8d9;
+    --terracotta: #8a4a3a;
+    --slate: #4a5568;
+    --text: #2c2824;
+    --text-light: #6b6560;
+    --border: #e0d8cf;
+    --tag-bg: #f0e9df;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    background: var(--stone);
+    color: var(--warm-off);
+    padding: 72px 0 64px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 80% 50%, rgba(202,220,252,0.08) 0%, transparent 65%),
+                radial-gradient(ellipse at 10% 80%, rgba(184,146,74,0.07) 0%, transparent 50%);
+  }
+
+  .hero-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 40px;
+    position: relative;
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(38px, 5vw, 58px);
+    font-weight: 300;
+    line-height: 1.15;
+    margin-bottom: 24px;
+    letter-spacing: -0.01em;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: rgba(245,240,235,0.6);
+  }
+
+  .hero-meta span {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .hero-meta svg {
+    width: 14px;
+    height: 14px;
+    opacity: 0.7;
+    flex-shrink: 0;
+  }
+
+  .hero-companies {
+    margin-top: 40px;
+    padding-top: 36px;
+    border-top: 1px solid rgba(245,240,235,0.12);
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .co-pill {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border: 1px solid rgba(184,146,74,0.35);
+    border-radius: 2px;
+    color: rgba(184,146,74,0.85);
+    background: rgba(184,146,74,0.06);
+  }
+
+  /* ─── LAYOUT ─── */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  /* ─── NAV TABS ─── */
+  .tab-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--stone-mid);
+    border-bottom: 1px solid rgba(184,146,74,0.2);
+  }
+
+  .tab-nav-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .tab-nav-inner::-webkit-scrollbar { display: none; }
+
+  .tab-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(245,240,235,0.5);
+    padding: 14px 20px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+    position: relative;
+    bottom: -1px;
+  }
+
+  .tab-btn:hover {
+    color: rgba(245,240,235,0.8);
+  }
+
+  .tab-btn.active {
+    color: var(--gold-light);
+    border-bottom-color: var(--gold);
+  }
+
+  /* ─── SECTIONS ─── */
+  .section {
+    display: none;
+    padding: 64px 0;
+    animation: fadeUp 0.35s ease;
+  }
+
+  .section.active {
+    display: block;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── SECTION HEADER ─── */
+  .section-header {
+    margin-bottom: 48px;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--stone);
+    margin-bottom: 12px;
+  }
+
+  .section-intro {
+    font-size: 15px;
+    color: var(--text-light);
+    max-width: 620px;
+    line-height: 1.75;
+  }
+
+  /* ─── CARDS ─── */
+  .card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+
+  .card-grid.thirds {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .card-grid.single {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 28px 28px 24px;
+    position: relative;
+    transition: box-shadow 0.2s;
+  }
+
+  .card:hover {
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  }
+
+  .card-accent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    border-radius: 3px 3px 0 0;
+  }
+
+  .card-accent.terracotta {
+    background: linear-gradient(90deg, var(--terracotta), #c0705e);
+  }
+
+  .card-accent.slate {
+    background: linear-gradient(90deg, #4a5568, #718096);
+  }
+
+  .card-icon {
+    font-size: 22px;
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  .card h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--stone);
+    margin-bottom: 8px;
+    letter-spacing: 0.01em;
+  }
+
+  .card p {
+    font-size: 13.5px;
+    color: var(--text-light);
+    line-height: 1.65;
+  }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 40px 0;
+  }
+
+  .divider.gold {
+    background: linear-gradient(90deg, var(--gold) 0%, transparent 100%);
+    height: 1px;
+    opacity: 0.4;
+  }
+
+  /* ─── PULLQUOTE ─── */
+  .pullquote {
+    border-left: 3px solid var(--gold);
+    padding: 20px 28px;
+    background: var(--gold-pale);
+    border-radius: 0 3px 3px 0;
+    margin: 36px 0;
+  }
+
+  .pullquote p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--stone);
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+
+  .pullquote cite {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-style: normal;
+  }
+
+  /* ─── MODULE BLOCKS (use areas) ─── */
+  .module-block {
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 24px;
+    background: #fff;
+  }
+
+  .module-header {
+    background: var(--stone);
+    color: var(--warm-off);
+    padding: 20px 28px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .module-number {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+  }
+
+  .module-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+  }
+
+  .module-body {
+    padding: 28px;
+  }
+
+  .module-body ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .module-body ul li {
+    font-size: 13.5px;
+    color: var(--text);
+    padding: 8px 0 8px 20px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    line-height: 1.6;
+  }
+
+  .module-body ul li:last-child {
+    border-bottom: none;
+  }
+
+  .module-body ul li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 12px;
+    top: 9px;
+  }
+
+  .module-body p {
+    font-size: 13.5px;
+    color: var(--text);
+    line-height: 1.7;
+    margin-bottom: 14px;
+  }
+
+  .module-body p:last-child { margin-bottom: 0; }
+
+  /* ─── KAHOOT RESULTS ─── */
+  .kahoot-section {
+    margin-bottom: 40px;
+  }
+
+  .kahoot-question {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 24px 28px;
+    margin-bottom: 16px;
+  }
+
+  .kq-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .kq-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--stone);
+    margin-bottom: 20px;
+    line-height: 1.3;
+  }
+
+  .kq-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .kq-bar-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .kq-bar-label {
+    font-size: 12.5px;
+    color: var(--text);
+    grid-column: 1 / -1;
+    margin-bottom: 4px;
+  }
+
+  .kq-bar-track {
+    background: var(--tag-bg);
+    border-radius: 2px;
+    height: 28px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .kq-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    border-radius: 2px;
+    transition: width 0.8s ease;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    min-width: 32px;
+  }
+
+  .kq-bar-fill.secondary {
+    background: linear-gradient(90deg, #1a3a5c, #2a5080);
+  }
+
+  .kq-count {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: #fff;
+    font-weight: 500;
+  }
+
+  .kq-pct {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    min-width: 36px;
+    text-align: right;
+  }
+
+  .kq-answer-row {
+    display: grid;
+    grid-template-columns: 1fr 80px;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .kq-bar-wrap {
+    flex: 1;
+    background: var(--tag-bg);
+    border-radius: 2px;
+    height: 26px;
+    overflow: hidden;
+  }
+
+  /* ─── STAT GRID ─── */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .stat-box {
+    background: var(--stone);
+    color: var(--warm-off);
+    padding: 24px 20px;
+    border-radius: 3px;
+    text-align: center;
+  }
+
+  .stat-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px;
+    font-weight: 300;
+    color: var(--gold-light);
+    line-height: 1;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: rgba(245,240,235,0.6);
+    line-height: 1.4;
+  }
+
+  /* ─── SPEAKER BLOCK ─── */
+  .speaker-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+
+  .speaker-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 24px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .speaker-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 2px;
+    background: var(--stone);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    color: var(--gold-light);
+    flex-shrink: 0;
+  }
+
+  .speaker-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--stone);
+    margin-bottom: 2px;
+  }
+
+  .speaker-role {
+    font-family: 'DM Mono', monospace;
+    font-size: 10.5px;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .speaker-note {
+    font-size: 13px;
+    color: var(--text-light);
+    line-height: 1.6;
+  }
+
+  /* ─── LINKS TABLE ─── */
+  .company-links-section {
+    margin-bottom: 48px;
+  }
+
+  .company-links-section h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--stone);
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .company-links-section h3 .co-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: var(--gold-pale);
+    padding: 3px 9px;
+    border-radius: 2px;
+  }
+
+  .links-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .links-list li {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 20px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+    font-size: 13.5px;
+  }
+
+  .links-list li:last-child {
+    border-bottom: none;
+  }
+
+  .link-label {
+    color: var(--text-light);
+    font-size: 12.5px;
+  }
+
+  .link-url {
+    color: var(--gold);
+    text-decoration: none;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    word-break: break-all;
+    transition: color 0.2s;
+  }
+
+  .link-url:hover {
+    color: var(--terracotta);
+    text-decoration: underline;
+  }
+
+  .link-placeholder {
+    color: var(--border);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    font-style: italic;
+  }
+
+  /* ─── TIMELINE ─── */
+  .timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 6px;
+    bottom: 6px;
+    width: 1px;
+    background: linear-gradient(180deg, var(--gold) 0%, var(--border) 100%);
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-bottom: 28px;
+  }
+
+  .timeline-item:last-child {
+    padding-bottom: 0;
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: -24px;
+    top: 5px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--cream);
+    box-shadow: 0 0 0 1px var(--gold);
+  }
+
+  .timeline-time {
+    font-family: 'DM Mono', monospace;
+    font-size: 10.5px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+  }
+
+  .timeline-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--stone);
+    margin-bottom: 4px;
+  }
+
+  .timeline-desc {
+    font-size: 13px;
+    color: var(--text-light);
+    line-height: 1.6;
+  }
+
+  /* ─── COMMITMENT BLOCKS ─── */
+  .commitment-card {
+    background: var(--gold-pale);
+    border: 1px solid rgba(184,146,74,0.25);
+    border-radius: 3px;
+    padding: 24px 28px;
+    margin-bottom: 16px;
+  }
+
+  .commitment-card h4 {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--stone);
+    margin-bottom: 6px;
+  }
+
+  .commitment-card p {
+    font-size: 13.5px;
+    color: var(--text);
+    line-height: 1.65;
+  }
+
+  /* ─── INSIGHT CALLOUT ─── */
+  .insight-box {
+    background: var(--stone);
+    color: var(--warm-off);
+    border-radius: 3px;
+    padding: 28px 32px;
+    margin: 32px 0;
+  }
+
+  .insight-box .ibox-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  .insight-box p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    line-height: 1.55;
+    font-weight: 300;
+  }
+
+  /* ─── TAG / BADGE ─── */
+  .tag {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 2px;
+    background: var(--tag-bg);
+    color: var(--text-light);
+    margin-right: 5px;
+    margin-bottom: 5px;
+  }
+
+  .tag.gold {
+    background: var(--gold-pale);
+    color: var(--gold);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 680px) {
+    .hero-inner, .container { padding: 0 20px; }
+    .card-grid, .card-grid.thirds { grid-template-columns: 1fr; }
+    .stat-row { grid-template-columns: 1fr 1fr; }
+    .speaker-row { grid-template-columns: 1fr; }
+    .links-list li { grid-template-columns: 1fr; gap: 4px; }
+    .tab-btn { padding: 14px 14px; font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─── HERO ─── -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Canica-selskapene · AI-seminar</div>
+    <h1>AI som strategisk<br><em>verktøy for ledelse</em></h1>
+    <div class="hero-meta">
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        25. mars 2026
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+        14:00 – 17:00
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        The Well, Sofiemyr
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        ~32 deltakere
+      </span>
+    </div>
+    <div class="hero-companies">
+      <span class="co-pill">Canica</span>
+      <span class="co-pill">Jernia</span>
+      <span class="co-pill">The Well</span>
+      <span class="co-pill">F&amp;H</span>
+      <span class="co-pill">Canica Eiendom</span>
+    </div>
+  </div>
+</div>
+
+<!-- ─── NAV ─── -->
+<nav class="tab-nav">
+  <div class="tab-nav-inner">
+    <button class="tab-btn active" onclick="showTab('oversikt')">Oversikt</button>
+    <button class="tab-btn" onclick="showTab('innhold')">Innhold</button>
+    <button class="tab-btn" onclick="showTab('kahoot')">Kahoot-resultater</button>
+    <button class="tab-btn" onclick="showTab('ressurser')">Ressurser &amp; lenker</button>
+  </div>
+</nav>
+
+<!-- ─── OVERSIKT ─── -->
+<section id="oversikt" class="section active">
+  <div class="container">
+
+    <div class="section-header">
+      <div class="section-label">Sammendrag</div>
+      <h2 class="section-title">Hva skjedde i løpet av tre timer?</h2>
+      <p class="section-intro">Toppledergruppen fra fem Canica-selskaper møttes for et halvdags AI-seminar fasilitert av Framework. Fokus: konkrete bruksområder, hands-on eksempler og individuelle forpliktelser.</p>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-box">
+        <span class="stat-value">5</span>
+        <span class="stat-label">Selskaper representert</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-value">~32</span>
+        <span class="stat-label">Deltakere fra ledergrupper</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-value">5</span>
+        <span class="stat-label">Bruksområder gjennomgått</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-value">3t</span>
+        <span class="stat-label">Intensiv gjennomgang</span>
+      </div>
+    </div>
+
+    <div class="pullquote">
+      <p>«AI handler ikke om teknologi – det handler om oss. Om hvordan vi forstår det, bruker det, og klarer å omsette det til verdi i hverdagen.»</p>
+      <cite>Kjetil Wisløff – åpning av seminaret</cite>
+    </div>
+
+    <h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:var(--stone);margin-bottom:20px;">Fasilitatorer</h3>
+    <div class="speaker-row">
+      <div class="speaker-card">
+        <div class="speaker-avatar">K</div>
+        <div>
+          <div class="speaker-name">Christine Folkvard</div>
+          <div class="speaker-role">Folkvard Consulting i samarbeid med Framework</div>
+          <div class="speaker-note">Strategirådgiver med 15 års erfaring i skjæringspunktet mellom analyse, forretning og teknologi. Hovedfasilitator for seminaret og ansvarlig for eksempelbygging og instruksjonsmateriale.</div>
+        </div>
+      </div>
+      <div class="speaker-card">
+        <div class="speaker-avatar">S</div>
+        <div>
+          <div class="speaker-name">Svein Tøge</div>
+          <div class="speaker-role">Framework</div>
+          <div class="speaker-note">Strategirådgiver med bakgrunn fra Orkla. Har samarbeidet med Canica siden 2016, bl.a. på merkevareskole og strategiprosesser for Jernia og F&amp;H.</div>
+        </div>
+      </div>
+      <div class="speaker-card">
+        <div class="speaker-avatar">K</div>
+        <div>
+          <div class="speaker-name">Christian Haune</div>
+          <div class="speaker-role">Framework · Strategirådgiver</div>
+          <div class="speaker-note">Strategirådgiver med bakgrunn fra Orkla. Bidro innledningsvis med perspektiv på trygghet, endringstakt og organisatorisk mottak av ny teknologi.</div>
+        </div>
+      </div>
+      <div class="speaker-card">
+        <div class="speaker-avatar">K</div>
+        <div>
+          <div class="speaker-name">Kjetil Wisløff</div>
+          <div class="speaker-role">Canica – initiativtaker</div>
+          <div class="speaker-note">Ønsket velkommen på vegne av Canica. Initiativet kom fra CEO Jan Ole, som erkjente at selskapet trengte å sette AI på agendaen med ekstern hjelp.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;color:var(--stone);margin-bottom:24px;">Program – 25. mars 2026</h3>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-time">14:00</div>
+        <div class="timeline-title">Velkomst og ramme</div>
+        <div class="timeline-desc">Kim Nyheim Ragnarsson (The Well) åpnet med velkommen. Kjetil Wisløff satte den strategiske rammen: AI handler om oss, ikke bare om tech. Svein og Christian delte perspektiver på trygghet og nytteverdi.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-time">14:20</div>
+        <div class="timeline-title">Kahoot: AI-modenhetsmåling</div>
+        <div class="timeline-desc">Fem spørsmål for å ta temperaturen på deltakernes nåværende bruk, holdning og bekymringer. Resultatene dannet grunnlag for å skreddersy vektleggingen i seminaret.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-time">14:35</div>
+        <div class="timeline-title">Område 1: Personlig produktivitet</div>
+        <div class="timeline-desc">Systemprompter, ChatGPT Schedules, Custom GPTs og Projects. Beslutningsverktøy: djevelens advokat, pre-mortem, multiperspektivanalyse.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-time">15:05</div>
+        <div class="timeline-title">Område 2: Prosesser og intern samhandling</div>
+        <div class="timeline-desc">Møteautomatisering og transkripsjon (Make.com-pipeline). NotebookLM og teamanalyse. Koblinger til Gmail, kalender og dokumenter via Claude/ChatGPT.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-time">15:35</div>
+        <div class="timeline-title">Område 3: Innholdsproduksjon og kommunikasjon</div>
+        <div class="timeline-desc">Kundekommunikasjon i Jernia-stemme. F&amp;H Brand &amp; Trade LinkedIn GPT. Skalerbar kommunikasjon uten å miste menneskelig touch.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-time">16:00</div>
+        <div class="timeline-title">Område 4: Analyse og innsikt</div>
+        <div class="timeline-desc">Jernia-datacase: 223 000 varelinjer analysert på én time. Samkjøpsmønstre, kurvverdidrivere, butikkprofiler. Interaktivt HTML-dashboard laget i Claude.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-time">16:25</div>
+        <div class="timeline-title">Område 5: Innovasjon og produktutvikling</div>
+        <div class="timeline-desc">Jernia nettside-prototype bygget i Lovable. Zone-lampe: fra forbrukerproblem via konseptskisse til landingsside for interesseregistrering.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-time">16:50</div>
+        <div class="timeline-title">Gruppearbeid og forpliktelser</div>
+        <div class="timeline-desc">Deltakerne identifiserte individuelle tiltak og selskapsrelevante prioriteringer. Oppfordring om å bruke ChatGPT Schedules til å følge opp egen forpliktelse.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-time">17:00</div>
+        <div class="timeline-title">Avslutning og Q&amp;A</div>
+        <div class="timeline-desc">Spørsmål om datakvalitet og hallusinasjon. ChatGPT vs. Claude-diskusjon. Kjetil avsluttet med applaus og oppfordring til å ta utfordringen.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── INNHOLD ─── -->
+<section id="innhold" class="section">
+  <div class="container">
+
+    <div class="section-header">
+      <div class="section-label">De fem bruksområdene</div>
+      <h2 class="section-title">Hva ble gjennomgått</h2>
+      <p class="section-intro">Seminaret dekket fem konkrete bruksområder, alle eksemplifisert med Canica-selskapene som kontekst.</p>
+    </div>
+
+    <!-- FRAIMEWORK INTRO -->
+    <div class="insight-box" style="margin-bottom:32px;">
+      <div class="ibox-label">FrAImework – rammeverket for seminaret</div>
+      <p style="font-size:16px;">Seminaret ble strukturert rundt et AI-hjul med fem bruksområder – fra innsiden og ut. Først frigjør du kapasitet hos deg selv (produktivitet), deretter i teamet (prosesser), så ut mot kunden (kommunikasjon), dypere inn i data (analyse) – og til slutt åpner det seg rom for innovasjon. Hvert lag bygger på det forrige.</p>
+    </div>
+
+    <!-- OMRÅDE 1 -->
+    <div class="module-block">
+      <div class="module-header">
+        <span class="module-number">01 /</span>
+        <span class="module-title">Personlig produktivitet og beslutningsstøtte</span>
+      </div>
+      <div class="module-body">
+        <p>AI er mest effektivt når det kjenner deg godt. Første skritt er å investere i å konfigurere verktøyet med kontekst: hvem du er, hva du jobber med, hvilke preferanser og mål du har. Dette er grunnmuren for alt annet.</p>
+
+        <div class="pullquote" style="margin:20px 0;">
+          <p>«AI handler ikke bare om store oppgaver – poenget er å endre mindset rundt alle oppgavene. Også de bittesmå.»</p>
+          <cite>Christine Folkvard</cite>
+        </div>
+
+        <ul>
+          <li><strong>Systemprompt og personalisering:</strong> Konfigurer ChatGPT eller Claude med din rolle, dine mål og favorittverktøy. Jo bedre den kjenner deg, jo bedre output.</li>
+          <li><strong>ChatGPT Schedules (oppgaver):</strong> Automatiske innsjekk på egne prioriteringer. Daglige nyhetsoppdateringer skreddersydd din bransje. Ukentlig coaching på personlige mål.
+            <br><em>Eksempelprompt:</em> «Hver mandag kl. 08:00 – gi meg en kort oppsummering av de viktigste nyhetene for retail, hospitality og consumer brands. Maks 5 punkter med lenker og hvorfor det er relevant for ledere.»</li>
+          <li><strong>Custom GPTs og Projects:</strong> GPT = en spesialist for én jobb. Project = digitalt prosjektrom med delte dokumenter og samtalehistorikk for hele teamet.</li>
+          <li><strong>MCP-koblinger (Model Context Protocol):</strong> Koble Claude eller ChatGPT direkte til verktøyene dine – e-post, kalender, dokumenter, Slack. AI-en kan da hente informasjon og utføre oppgaver på dine vegne uten at du manuelt kopierer og limer. Første steg: koble til Gmail eller Outlook via Claude-innstillinger.</li>
+          <li><strong>Beslutningsverktøy:</strong>
+            <br>→ <em>Djevelens advokat</em> – identifiserer svake antakelser og blinde flekker
+            <br>→ <em>Pre-mortem</em> – «alt gikk galt om 12 måneder – hva skjedde?»
+            <br>→ <em>Multiperspektivanalyse</em> – systematisk utfordring av egne resonnementer
+            <br>→ <em>Bias-kritiker</em> – avdekker kognitive fallgruver i beslutninger
+          </li>
+          <li><strong>Gmail-integrasjon (demo):</strong> «Hei Claude, gå inn i Gmailen min og finn mailer jeg bør svare på.» AI tagger relevante mails og foreslår svar i din stemme.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- OMRÅDE 2 -->
+    <div class="module-block">
+      <div class="module-header">
+        <span class="module-number">02 /</span>
+        <span class="module-title">Effektivisering av arbeidsprosesser og intern samhandling</span>
+      </div>
+      <div class="module-body">
+        <p>McKinsey anslår at ledere bruker kun 28 % av arbeidstiden på kjerneoppgaver. Resten går til dokumentleting, møteoppfølging, e-post og verktøybytte. For vanlige medarbeidere er tallet nærmere 15 %. Her er gevinsten størst.</p>
+
+        <div class="card-grid" style="margin:20px 0 8px;">
+          <div class="card" style="padding:20px;">
+            <div class="card-accent"></div>
+            <div style="font-family:'DM Mono',monospace;font-size:32px;font-weight:300;color:var(--gold);line-height:1;margin-bottom:6px;">61%</div>
+            <div style="font-size:13px;color:var(--text-light);">av arbeidsdagen brukes på «arbeid rundt arbeidet»</div>
+          </div>
+          <div class="card" style="padding:20px;">
+            <div class="card-accent terracotta"></div>
+            <div style="font-family:'DM Mono',monospace;font-size:32px;font-weight:300;color:var(--terracotta);line-height:1;margin-bottom:6px;">4 950</div>
+            <div style="font-size:13px;color:var(--text-light);">unike relasjoner i en organisasjon med 100 ansatte</div>
+          </div>
+        </div>
+
+        <ul>
+          <li><strong>Møtetranskripsjon-pipeline (Make.com):</strong> Ta opp møtet på iPhone → last opp til OneDrive → OpenAI transkriberer automatisk → strukturert referat med oppfølgingspunkter i innboksen.</li>
+          <li><strong>Møteanalyse over tid (Claude):</strong> Last opp fem møtetranskripsjoner og spør: «Hva har modnet? Hva er fortsatt uløst? Hvem er underutnyttet i teamet?» – nesten coaching i praksis.</li>
+          <li><strong>NotebookLM (gratis):</strong> Last opp møtenotater, strategidokumenter og YouTube-videoer i samme notatbok. Still spørsmål på tvers av alle kildene. Lager automatisk podkast-samtaler, visuelle fremstillinger og tidslinjer. Brukt i seminaret til å kombinere The Well-møter med Horst Schulze (Ritz-Carlton) for å trekke ut de mest relevante gjestfrihetsprinsippene.</li>
+          <li><strong>Forutsetninger for suksess:</strong> Kommunikasjonskanaler med system, konsekvent bruk av planleggingsverktøy, rene og strukturerte datakilder. AI forsterker orden – den rydder ikke opp i kaos.</li>
+          <li><strong>The Well-caset:</strong> Simulert prosjektgruppe «Forbedring av kundereisen» – fem møtetranskripsjoner analysert for prosjektmodenhet, teamdynamikk og flaskehalser.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- OMRÅDE 3 -->
+    <div class="module-block">
+      <div class="module-header">
+        <span class="module-number">03 /</span>
+        <span class="module-title">Innholdsproduksjon og ekstern kommunikasjon</span>
+      </div>
+      <div class="module-body">
+        <p>AI gjør ikke ekspertisen overflødig – den gjør ekspertisen mer tilgjengelig. Poenget er ikke å standardisere kommunikasjonen til døde, men å sikre at menneskelig kompetanse kan skalere uten at kvaliteten synker eller det blir personavhengig.</p>
+        <ul>
+          <li><strong>Jernia mystery shopper-mail:</strong> Christine sendte en humoristisk henvendelse om hammere for å teste om det var chatbot/agent aktivt. (Det var det ikke.) Illustrasjon av lavthengende potensialer i kundedialog.</li>
+          <li><strong>F&amp;H Brand &amp; Trade LinkedIn GPT:</strong> Bygget på dypanalyse av selskapets LinkedIn-aktivitet og brand guide. Avgjør hvem som bør poste, skriver innlegg i riktig stemme, og korrigerer off-brand-formuleringer.</li>
+          <li><strong>Eksempel:</strong> «We are so proud and excited to share this beautiful universe...» → GPT forklarer hva som er off-brand og omskriver i korrekt corporate voice.</li>
+          <li><strong>Kommunikasjonsklone (ChatGPT):</strong> En GPT trent på din egen skrivestil svarer på mails og utkast i din stemme – og kan tagges direkte inn i samtaler.</li>
+          <li><strong>Bruksbredde:</strong> Markedsføring, sosiale medier, lederkommunikasjon, HR, salg og prosjektoppfølging. Alle kan ha nytte av AI-støttet kommunikasjon.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- OMRÅDE 4 -->
+    <div class="module-block">
+      <div class="module-header">
+        <span class="module-number">04 /</span>
+        <span class="module-title">Analyse, innsikt og databruk</span>
+      </div>
+      <div class="module-body">
+        <p>Analyse er ofte en flaskehals – ikke fordi analytikerne mangler kapasitet, men fordi for mye av tiden går til datavask, tilrettelegging og formidling. AI kan frigjøre den tiden til det som faktisk krever faglig skjønn: <em>flere kan tenke bedre med støtte fra analyse.</em></p>
+
+        <div style="background:#f2e8d9;border-left:3px solid #b8924a;border-radius:0 3px 3px 0;padding:12px 18px;margin-bottom:24px;display:flex;flex-wrap:wrap;gap:20px;align-items:center;">
+          <span style="font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:#b8924a;flex-basis:100%;margin-bottom:2px;">Jernia-datacase</span>
+          <span style="font-size:13px;color:#2c2824;">127 679 transaksjoner · 223 309 varelinjer · 82 butikker · analysert på <strong>én time</strong></span>
+          <span style="font-size:12px;color:#6b6560;font-style:italic;">«Det er sjeldent. Nyt øyeblikket.» – ChatGPT</span>
+        </div>
+
+        <ul>
+          <li><strong>Funn samkjøp – topp produktpar:</strong>
+            <br>→ Sleiv oliventre + Stekespade oliventre: <strong>88,5 %</strong> samkjøpsrate
+            <br>→ Røreskje m/hull + Stekespade oliventre: <strong>86,1 %</strong>
+            <br>→ Gatekost 30 cm + Kosteskaft universal: <strong>69,2 %</strong>
+            <br>→ Logikken ligger på produktfamilienivå, ikke enkelt-SKU. Kunden tenker «oppgave», ikke «kategori».
+          </li>
+          <li><strong>Funn kurvverdi – snitt bongverdi 347 kr:</strong> Dyre produkter løfter bong naturlig (gryter, dampvaskere, høytrykksspylere). Men mer interessant: maleprodukter åpner hele prosjektkurver. LADY Pure Color: 4,1 varer i snitt. Rullesett: 6,4 varer. Startpakke inne: 5,8 varer.</li>
+          <li><strong>Funn mersalg:</strong> Beste mersalgsartikler er billige og funksjonelle – engangsinnlegg, malerruller, rørepinne, minirullkar. Kunden ser dem ikke selv i hylla, men AI finner dem i dataene.</li>
+          <li><strong>Butikkprofiler:</strong> 82 butikker har tydelig ulike handelsprofiler – samme mersalgsgrep kan ikke rulles ut identisk overalt.</li>
+          <li><strong>Handlingsforslag fra analysen:</strong> Bundle-pakker (maling + ruller + kost), mersalgstrening i butikk, vareplassering etter samkjøpsmønstre, kampanjer tilpasset butikkprofil.</li>
+          <li><strong>Visualisering:</strong> Hele analysen overført til Claude som bygde et interaktivt HTML-dashboard med faner for samkjøp, kurvverdi, mersalg, innsikter og handlingsanbefalinger.</li>
+          <li><strong>De tre kritiske elementene:</strong> Stille de riktige spørsmålene · Ha god datakvalitet · Evne til å omsette innsikt til handling.</li>
+          <li><strong>Spørsmål fra salen: Datasikkerhet og personvern</strong><br>
+          Det finnes ikke ett riktig svar for alle. Tenk i nivåer etter hvor sensitiv dataen er:
+            <br>→ <em>Åpen/lavsensitiv bruk</em> – idéarbeid, utkast, research: enterprise skyløsning holder som regel
+            <br>→ <em>Intern, moderat sensitiv</em> – møtenotater, salgsdata: bruk bedriftsavtaler med SSO, tilgangsstyring og logging – ikke gratisverktøy
+            <br>→ <em>Høysensitiv/persondata</em> – gå via API eller Azure/OpenAI i kontrollert oppsett, ikke la ansatte lime data inn i en chatbot
+            <br>→ <em>Svært sensitiv/regulatorisk</em> – lokal eller privat drift kan være riktig, men lokal er ikke automatisk tryggere: det krever moden sikkerhetsstyring
+            <br><br>En enkel tommelfingerregel: <strong>Start ikke med de mest sensitive dataene.</strong> Start med lavrisiko-brukstilfeller, bygg policy og kompetanse, og øk gradvis. EUs AI-forordning innføres i Norge fra sensommeren 2026 – dette er ikke tidspunktet for å improvisere.
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- OMRÅDE 5 -->
+    <div class="module-block">
+      <div class="module-header">
+        <span class="module-number">05 /</span>
+        <span class="module-title">Innovasjon, produkt- og tjenesteutvikling</span>
+      </div>
+      <div class="module-body">
+        <p>Når kapasitet frigjøres i de fire foregående områdene, åpner det seg rom for innovasjon. AI komprimerer ikke bare produksjonstid – det gjør eksperimentering rimelig nok til å faktisk gjøre det.</p>
+        <ul>
+          <li><strong>Jernia nettside-prototype:</strong> Dypanalyse av konkurransesituasjonen → ChatGPT identifiserte at Jernias styrke er hjelpen rundt hylla, ikke selve hylla. Ny forside prototypet i Lovable: fra kampanjeflate til beslutningsstøttende kundereise. Tid fra idé til testbar prototype: etter lunsj.</li>
+          <li><strong>Zone-lampekonsept (F&amp;H):</strong>
+            <br>→ Forbrukerproblemanalyse: hardt lys, blending, støv, visuell støy fra ledninger
+            <br>→ Konseptutvikling: skjermet lyskilde, wipe-clean overflate, minimal ledningsstøy
+            <br>→ Industriskisser generert i AI, deretter 3D-visualisering i rommiljø
+            <br>→ Landingsside laget i Claude for interesseregistrering: «Ny pendel 2027»
+          </li>
+          <li><strong>Innovasjonsworkshop-bruk:</strong> Lag 5 mulighetsområder × 5 varianter for å inspirere til diskusjon. Ikke for å konkludere – for å starte debatten fra et konkret sted.</li>
+          <li><strong>Fra analogi:</strong> Jernia brand-posisjonering i 2017 krevde reise til USA, inspirasjonsbilder og tung fakturering. Samme prosess i dag: noen timer med ChatGPT og dypanalyse.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="divider gold"></div>
+
+    <!-- NØKKELPRINSIPPER -->
+    <div class="section-header" style="margin-top:40px;">
+      <div class="section-label">Gjennomgående temaer</div>
+      <h2 class="section-title" style="font-size:28px;">Prinsipper og perspektiver</h2>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-accent"></div>
+        <span class="card-icon">🧠</span>
+        <h3>Start med kontekst, ikke kommandoer</h3>
+        <p>AI som kjenner deg godt leverer dramatisk bedre output. Invester i å sette opp systemprompter og konfigurere verktøyene dine én gang – og høst gevinsten i alle fremtidige interaksjoner.</p>
+      </div>
+      <div class="card">
+        <div class="card-accent"></div>
+        <span class="card-icon">⚡</span>
+        <h3>Lav terskel for å starte</h3>
+        <p>Det meste av det som ble vist kan tas i bruk fra neste morgen. Ikke vent på en stor strategi. Begynn med ett avgrenset område, sett en personlig forpliktelse, og la erfaring bygge seg opp.</p>
+      </div>
+      <div class="card">
+        <div class="card-accent"></div>
+        <span class="card-icon">🔍</span>
+        <h3>Kvalitetssikre underveis</h3>
+        <p>AI hallusinerer – finner på det som virker mest sannsynlig. 95 % kan være riktig, men de siste 5 % kan være de kritiske. Del opp komplekse oppgaver, verifiser underveis, og bruk AI til å sjekke sitt eget arbeid.</p>
+      </div>
+      <div class="card">
+        <div class="card-accent"></div>
+        <span class="card-icon">👥</span>
+        <h3>AI erstatter ikke, det forsterker</h3>
+        <p>Menneskelig vurdering, relasjonskompetanse og kontekstuell intelligens er uerstattelig. AI frigjør kapasitet til nettopp dette – mer tilstedeværelse, mer kreativitet, mer strategisk tenkning.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── KAHOOT ─── -->
+<section id="kahoot" class="section">
+  <div class="container">
+
+    <div class="section-header">
+      <div class="section-label">AI-modenhetsmåling</div>
+      <h2 class="section-title">Kahoot-resultater</h2>
+      <p class="section-intro">~32 deltakere svarte på fem spørsmål om nåværende AI-bruk, holdning og bekymringer. Resultatene ble brukt til å kalibrere gjennomgangen i sanntid.</p>
+    </div>
+
+    <!-- Q1 -->
+    <div class="kahoot-question">
+      <div class="kq-label">Spørsmål 1 av 5</div>
+      <div class="kq-text">Hvor mange ganger brukte du AI i jobben sist uke?</div>
+      <div class="kq-bars">
+        <div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+            <div style="flex:1;background:var(--tag-bg);border-radius:2px;height:32px;overflow:hidden;">
+              <div style="width:47.6%;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));display:flex;align-items:center;padding-left:12px;">
+                <span style="font-family:'DM Mono',monospace;font-size:11px;color:#fff;">10</span>
+              </div>
+            </div>
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--gold);min-width:36px;">48%</span>
+          </div>
+          <div style="font-size:12.5px;color:var(--text-light);margin-bottom:10px;">6–20 ganger</div>
+
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+            <div style="flex:1;background:var(--tag-bg);border-radius:2px;height:32px;overflow:hidden;">
+              <div style="width:42.8%;height:100%;background:linear-gradient(90deg,var(--stone-mid),#2a5080);display:flex;align-items:center;padding-left:12px;">
+                <span style="font-family:'DM Mono',monospace;font-size:11px;color:#fff;">9</span>
+              </div>
+            </div>
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--text-light);min-width:36px;">43%</span>
+          </div>
+          <div style="font-size:12.5px;color:var(--text-light);margin-bottom:10px;">1–5 ganger</div>
+
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+            <div style="flex:1;background:var(--tag-bg);border-radius:2px;height:32px;overflow:hidden;">
+              <div style="width:4.8%;height:100%;background:linear-gradient(90deg,var(--terracotta),#c0705e);display:flex;align-items:center;padding-left:12px;">
+                <span style="font-family:'DM Mono',monospace;font-size:11px;color:#fff;">1</span>
+              </div>
+            </div>
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--text-light);min-width:36px;">5%</span>
+          </div>
+          <div style="font-size:12.5px;color:var(--text-light);">0 ganger</div>
+        </div>
+      </div>
+      <div class="insight-box" style="margin-top:20px;padding:18px 22px;">
+        <div class="ibox-label">Innsikt</div>
+        <p style="font-size:15px;">Nesten alle bruker AI aktivt. Ingen er helt passiv, ingen er fullstendig automatisert. Klassisk «tidlig majoritets»-profil: bredt engasjement, men uten system.</p>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="kahoot-question">
+      <div class="kq-label">Spørsmål 2 av 5</div>
+      <div class="kq-text">Hva beskriver best ditt nåværende forhold til AI?</div>
+      <div class="kq-bars">
+        <div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+            <div style="flex:1;background:var(--tag-bg);border-radius:2px;height:32px;overflow:hidden;">
+              <div style="width:50%;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));display:flex;align-items:center;padding-left:12px;">
+                <span style="font-family:'DM Mono',monospace;font-size:11px;color:#fff;">11</span>
+              </div>
+            </div>
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--gold);min-width:36px;">50%</span>
+          </div>
+          <div style="font-size:12.5px;color:var(--text-light);margin-bottom:10px;">Nysgjerrig, men litt ustrukturert</div>
+
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+            <div style="flex:1;background:var(--tag-bg);border-radius:2px;height:32px;overflow:hidden;">
+              <div style="width:40.9%;height:100%;background:linear-gradient(90deg,var(--stone-mid),#2a5080);display:flex;align-items:center;padding-left:12px;">
+                <span style="font-family:'DM Mono',monospace;font-size:11px;color:#fff;">9</span>
+              </div>
+            </div>
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--text-light);min-width:36px;">41%</span>
+          </div>
+          <div style="font-size:12.5px;color:var(--text-light);margin-bottom:10px;">Jeg bruker det jevnlig og vil mer</div>
+
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+            <div style="flex:1;background:var(--tag-bg);border-radius:2px;height:32px;overflow:hidden;">
+              <div style="width:4.5%;height:100%;background:linear-gradient(90deg,var(--terracotta),#c0705e);display:flex;align-items:center;padding-left:12px;">
+                <span style="font-family:'DM Mono',monospace;font-size:11px;color:#fff;font-size:10px;">1</span>
+              </div>
+            </div>
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--text-light);min-width:36px;">5%</span>
+          </div>
+          <div style="font-size:12.5px;color:var(--text-light);margin-bottom:10px;">Jeg tester lite, men følger nøye med</div>
+
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+            <div style="flex:1;background:var(--tag-bg);border-radius:2px;height:32px;overflow:hidden;">
+              <div style="width:4.5%;height:100%;background:linear-gradient(90deg,#888,#aaa);display:flex;align-items:center;padding-left:12px;">
+                <span style="font-family:'DM Mono',monospace;font-size:10px;color:#fff;">1</span>
+              </div>
+            </div>
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--text-light);min-width:36px;">5%</span>
+          </div>
+          <div style="font-size:12.5px;color:var(--text-light);">Det føles som alle andre fikk manualen bortsett fra meg</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="kahoot-question">
+      <div class="kq-label">Spørsmål 3 av 5</div>
+      <div class="kq-text">Hva er status for AI i ditt selskap akkurat nå?</div>
+      <div class="kq-bars">
+        <div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+            <div style="flex:1;background:var(--tag-bg);border-radius:2px;height:32px;overflow:hidden;">
+              <div style="width:50%;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));display:flex;align-items:center;padding-left:12px;">
+                <span style="font-family:'DM Mono',monospace;font-size:11px;color:#fff;">12</span>
+              </div>
+            </div>
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--gold);min-width:36px;">50%</span>
+          </div>
+          <div style="font-size:12.5px;color:var(--text-light);margin-bottom:10px;">Noen eksperimenterer litt i krokene</div>
+
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+            <div style="flex:1;background:var(--tag-bg);border-radius:2px;height:32px;overflow:hidden;">
+              <div style="width:41.7%;height:100%;background:linear-gradient(90deg,var(--stone-mid),#2a5080);display:flex;align-items:center;padding-left:12px;">
+                <span style="font-family:'DM Mono',monospace;font-size:11px;color:#fff;">10</span>
+              </div>
+            </div>
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--text-light);min-width:36px;">42%</span>
+          </div>
+          <div style="font-size:12.5px;color:var(--text-light);margin-bottom:10px;">Det brukes aktivt i deler av virksomheten</div>
+
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+            <div style="flex:1;background:var(--tag-bg);border-radius:2px;height:32px;overflow:hidden;">
+              <div style="width:8.3%;height:100%;background:linear-gradient(90deg,var(--terracotta),#c0705e);display:flex;align-items:center;padding-left:12px;">
+                <span style="font-family:'DM Mono',monospace;font-size:11px;color:#fff;">2</span>
+              </div>
+            </div>
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--text-light);min-width:36px;">8%</span>
+          </div>
+          <div style="font-size:12.5px;color:var(--text-light);">Vi prøver å få dette fra hype til faktisk verdi</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="kahoot-question">
+      <div class="kq-label">Spørsmål 4 av 5</div>
+      <div class="kq-text">Hva bekymrer deg mest med AI akkurat nå?</div>
+      <div class="kq-bars">
+        <div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+            <div style="flex:1;background:var(--tag-bg);border-radius:2px;height:32px;overflow:hidden;">
+              <div style="width:54.2%;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));display:flex;align-items:center;padding-left:12px;">
+                <span style="font-family:'DM Mono',monospace;font-size:11px;color:#fff;">13</span>
+              </div>
+            </div>
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--gold);min-width:36px;">54%</span>
+          </div>
+          <div style="font-size:12.5px;color:var(--text-light);margin-bottom:10px;">At andre bruker det smartere enn oss</div>
+
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+            <div style="flex:1;background:var(--tag-bg);border-radius:2px;height:32px;overflow:hidden;">
+              <div style="width:25%;height:100%;background:linear-gradient(90deg,var(--stone-mid),#2a5080);display:flex;align-items:center;padding-left:12px;">
+                <span style="font-family:'DM Mono',monospace;font-size:11px;color:#fff;">6</span>
+              </div>
+            </div>
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--text-light);min-width:36px;">25%</span>
+          </div>
+          <div style="font-size:12.5px;color:var(--text-light);margin-bottom:10px;">At jeg ikke henger med</div>
+
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+            <div style="flex:1;background:var(--tag-bg);border-radius:2px;height:32px;overflow:hidden;">
+              <div style="width:12.5%;height:100%;background:linear-gradient(90deg,var(--terracotta),#c0705e);display:flex;align-items:center;padding-left:12px;">
+                <span style="font-family:'DM Mono',monospace;font-size:11px;color:#fff;">3</span>
+              </div>
+            </div>
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--text-light);min-width:36px;">13%</span>
+          </div>
+          <div style="font-size:12.5px;color:var(--text-light);margin-bottom:10px;">At vi lager masse støy og lite verdi</div>
+
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+            <div style="flex:1;background:var(--tag-bg);border-radius:2px;height:32px;overflow:hidden;">
+              <div style="width:8.3%;height:100%;background:linear-gradient(90deg,#888,#aaa);display:flex;align-items:center;padding-left:12px;">
+                <span style="font-family:'DM Mono',monospace;font-size:11px;color:#fff;">2</span>
+              </div>
+            </div>
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--text-light);min-width:36px;">8%</span>
+          </div>
+          <div style="font-size:12.5px;color:var(--text-light);">At vi overdramatiserer hele greia</div>
+        </div>
+      </div>
+      <div class="pullquote" style="margin-top:20px;">
+        <p>«Alle disse er helt legitime bekymringer – men de peker alle tilbake til nytteverdi. Hvordan bruker vi dette på en bedre og mer relevant måte?»</p>
+        <cite>Christine Folkvard – kommentar til resultatene</cite>
+      </div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="kahoot-question">
+      <div class="kq-label">Spørsmål 5 av 5</div>
+      <div class="kq-text">Hvor kunne AI spart deg mest tid i hverdagen?</div>
+      <div class="kq-bars">
+        <div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+            <div style="flex:1;background:var(--tag-bg);border-radius:2px;height:32px;overflow:hidden;">
+              <div style="width:43.5%;height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-light));display:flex;align-items:center;padding-left:12px;">
+                <span style="font-family:'DM Mono',monospace;font-size:11px;color:#fff;">10</span>
+              </div>
+            </div>
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--gold);min-width:36px;">43%</span>
+          </div>
+          <div style="font-size:12.5px;color:var(--text-light);margin-bottom:10px;">Analyse, innsikt og beslutningsgrunnlag</div>
+
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+            <div style="flex:1;background:var(--tag-bg);border-radius:2px;height:32px;overflow:hidden;">
+              <div style="width:39.1%;height:100%;background:linear-gradient(90deg,var(--stone-mid),#2a5080);display:flex;align-items:center;padding-left:12px;">
+                <span style="font-family:'DM Mono',monospace;font-size:11px;color:#fff;">9</span>
+              </div>
+            </div>
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--text-light);min-width:36px;">39%</span>
+          </div>
+          <div style="font-size:12.5px;color:var(--text-light);margin-bottom:10px;">Møter, oppsummeringer og oppfølging</div>
+
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+            <div style="flex:1;background:var(--tag-bg);border-radius:2px;height:32px;overflow:hidden;">
+              <div style="width:13%;height:100%;background:linear-gradient(90deg,var(--terracotta),#c0705e);display:flex;align-items:center;padding-left:12px;">
+                <span style="font-family:'DM Mono',monospace;font-size:11px;color:#fff;">3</span>
+              </div>
+            </div>
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--text-light);min-width:36px;">13%</span>
+          </div>
+          <div style="font-size:12.5px;color:var(--text-light);margin-bottom:10px;">E-post og skriftlig kommunikasjon</div>
+
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+            <div style="flex:1;background:var(--tag-bg);border-radius:2px;height:32px;overflow:hidden;">
+              <div style="width:4.3%;height:100%;background:linear-gradient(90deg,#888,#aaa);display:flex;align-items:center;padding-left:12px;">
+                <span style="font-family:'DM Mono',monospace;font-size:10px;color:#fff;">1</span>
+              </div>
+            </div>
+            <span style="font-family:'DM Mono',monospace;font-size:12px;color:var(--text-light);min-width:36px;">4%</span>
+          </div>
+          <div style="font-size:12.5px;color:var(--text-light);">Idéarbeid, research og førsteutkast</div>
+        </div>
+      </div>
+      <div class="insight-box" style="margin-top:20px;padding:18px 22px;">
+        <div class="ibox-label">Innsikt</div>
+        <p style="font-size:15px;">Analyse og møter/oppfølging scorer høyest – og er nettopp det seminaret dekket i dybden. En naturlig bekreftelse på at designet traff publikummet.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── RESSURSER ─── -->
+<section id="ressurser" class="section">
+  <div class="container">
+
+    <div class="section-header">
+      <div class="section-label">Dokumentasjon og ressurser</div>
+      <h2 class="section-title">Lenker og materiell</h2>
+      <p class="section-intro">Instruksjonsdokument, dypanalyser og eksempler deles via OneDrive etter seminaret. Lenker oppdateres løpende nedenfor per selskap.</p>
+    </div>
+
+    <!-- FELLES -->
+    <div class="company-links-section">
+      <h3>Felles materiell <span class="co-tag">Alle selskaper</span></h3>
+      <ul class="links-list">
+        <li>
+          <span class="link-label">📁 Dokumentasjonsmappe (OneDrive)</span>
+          <a href="https://1drv.ms/f/c/d3b44e4ce3288a2f/IgBa_S8pK2aBQJVvdv2OQC8GAbi0hl5eLDSCE5Z7yjdWcZM?e=hbd1a5" class="link-url" target="_blank" onclick="window.open(this.href);return false;">Åpne delt mappe →</a>
+        </li>
+        <li>
+          <span class="link-label">📄 Instruksjonsguide</span>
+          <a href="https://1drv.ms/w/c/d3b44e4ce3288a2f/IQBL0q7VJUHVSZRuaETcCd5gAfUda9cCdGQf-NGeCsRo-HY?e=5qkndT" class="link-url" target="_blank" onclick="window.open(this.href);return false;">Åpne instruksjonsdokument →</a>
+        </li>
+        <li>
+          <span class="link-label">📊 Presentasjon / slides (PDF)</span>
+          <a href="https://1drv.ms/b/c/d3b44e4ce3288a2f/IQBtLv9S9SkiSpncPEr40fjQASe6oJaBC-34Kp2fx99Al80?e=bA2fKT" class="link-url" target="_blank" onclick="window.open(this.href);return false;">Åpne presentasjon →</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- JERNIA -->
+    <div class="company-links-section">
+      <h3>Jernia <span class="co-tag">Jernia</span></h3>
+      <ul class="links-list">
+        <li>
+          <span class="link-label">🎵 Suno – Jernia brandsang</span>
+          <a href="https://suno.com/s/zZpDjVKA5tEv7sfn" class="link-url" target="_blank" onclick="window.open(this.href);return false;">Lytt på Suno →</a>
+        </li>
+        <li>
+          <span class="link-label">📊 Dypanalyse – PPT-versjon</span>
+          <a href="https://1drv.ms/b/c/d3b44e4ce3288a2f/IQArsgO-N6t7T6nw1GCm50BMARZslNG227dUeia2HYFSQoM?e=VUMUZj" class="link-url" target="_blank" onclick="window.open(this.href);return false;">Åpne presentasjon →</a>
+        </li>
+        <li>
+          <span class="link-label">📄 Dypanalyse – Word-versjon</span>
+          <a href="https://1drv.ms/w/c/d3b44e4ce3288a2f/IQDgPeQqEuL2SLjriYpI5cVzAYlADwdyQFJdeG_uiORyveI?e=LRa7aH" class="link-url" target="_blank" onclick="window.open(this.href);return false;">Åpne dokument →</a>
+        </li>
+        <li>
+          <span class="link-label">📊 Jernia dataanalyse – dashboard</span>
+          <a href="https://claude.ai/public/artifacts/1b8aab38-1f9c-4896-a156-083313f4909b" class="link-url" target="_blank" onclick="window.open(this.href);return false;">Åpne dashboard →</a>
+        </li>
+        <li>
+          <span class="link-label">🌐 Nettside-prototype (Lovable)</span>
+          <a href="https://velg-riktig-hjem.lovable.app/" class="link-url" target="_blank" onclick="window.open(this.href);return false;">Åpne prototype →</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- THE WELL -->
+    <div class="company-links-section">
+      <h3>The Well <span class="co-tag">The Well</span></h3>
+      <ul class="links-list">
+        <li>
+          <span class="link-label">🎵 Suno – The Well brandsang</span>
+          <a href="https://suno.com/s/AoyuMSgcU3fEK4zO" class="link-url" target="_blank" onclick="window.open(this.href);return false;">Lytt på Suno →</a>
+        </li>
+        <li>
+          <span class="link-label">📄 Dypanalyse – The Well</span>
+          <a href="https://1drv.ms/w/c/d3b44e4ce3288a2f/IQB5jJGvS4LWS4JlZTFykuhAAVrT3vM9sb7LdYlVIj5pCdg?e=j8OVPl" class="link-url" target="_blank" onclick="window.open(this.href);return false;">Åpne dokument →</a>
+        </li>
+        <li>
+          <span class="link-label">📄 Brand guide – The Well</span>
+          <a href="https://1drv.ms/t/c/d3b44e4ce3288a2f/IQDHJmkT1fWkRrjX7fZOKv_uAZv-gBJbE1u_5bvaf_S5XgI?e=Dkbu5U" class="link-url" target="_blank" onclick="window.open(this.href);return false;">Åpne brand guide →</a>
+        </li>
+        <li>
+          <span class="link-label">📄 GPT-instruksjon – The Well E-mail GPT</span>
+          <a href="https://1drv.ms/t/c/d3b44e4ce3288a2f/IQASM3JDirShTbjv3f6qOtuuAREP5k5EsbJABPBa0bS0CSA?e=hAVgtE" class="link-url" target="_blank" onclick="window.open(this.href);return false;">Åpne instruksjon →</a>
+        </li>
+        <li>
+          <span class="link-label">🎙️ Simulerte møtetranskripsjoner (NotebookLM)</span>
+          <a href="https://notebooklm.google.com/notebook/2ee54646-0014-4d72-87f1-3cb6f21b7650" class="link-url" target="_blank" onclick="window.open(this.href);return false;">Åpne NotebookLM →</a>
+        </li>
+        <li>
+          <span class="link-label">🤝 Teamanalyse – kundereise-prosjekt</span>
+          <a href="https://claude.ai/public/artifacts/6903d435-549a-4e40-8cf1-afeb22224fef" class="link-url" target="_blank" onclick="window.open(this.href);return false;">Åpne analyse →</a>
+        </li>
+        <li>
+          <span class="link-label">🤖 The Well E-mail GPT</span>
+          <a href="https://chatgpt.com/g/g-69ab232ea8548191a8f81aeae44a040e-the-well-e-mail-gpt" class="link-url" target="_blank" onclick="window.open(this.href);return false;">Åpne GPT →</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- F&H -->
+    <div class="company-links-section">
+      <h3>F&amp;H <span class="co-tag">F&amp;H</span></h3>
+      <ul class="links-list">
+        <li>
+          <span class="link-label">F&amp;H Brand &amp; Trade LinkedIn GPT</span>
+          <span class="link-placeholder">— deles når merkevareavklaring er klar</span>
+        </li>
+        <li>
+          <span class="link-label">🌐 Zone – landingsside for interesseregistrering</span>
+          <a href="https://claude.ai/public/artifacts/93ca65bf-ffd4-4418-a339-6ecc08039ac0" class="link-url" target="_blank" onclick="window.open(this.href);return false;">Åpne landingsside →</a>
+        </li>
+        <li>
+          <span class="link-label">🎵 Suno – F&amp;H brandsang</span>
+          <a href="https://suno.com/s/vjcXrfHak2a3O2ni" class="link-url" target="_blank" onclick="window.open(this.href);return false;">Lytt på Suno →</a>
+        </li>
+        <li>
+          <span class="link-label">📄 Dypanalyse – F&amp;H</span>
+          <a href="https://1drv.ms/w/c/d3b44e4ce3288a2f/IQBb7Qaxupx0T6_W0sH0iGi1ATYtzkV4mikdY4OSi2Yc9Ms?e=QqgYvo" class="link-url" target="_blank" onclick="window.open(this.href);return false;">Åpne dokument →</a>
+        </li>
+        <li>
+          <span class="link-label">📄 GPT-instruksjon – F&amp;H LinkedIn GPT</span>
+          <a href="https://1drv.ms/t/c/d3b44e4ce3288a2f/IQBTvwePBkxYRbs9W161nwLDAc1KKe6wHg5hBQ_lCdtJFmM?e=lLUqMB" class="link-url" target="_blank" onclick="window.open(this.href);return false;">Åpne instruksjon →</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- CANICA -->
+    <div class="company-links-section">
+      <h3>Canica / Canica Eiendom <span class="co-tag">Canica</span></h3>
+      <ul class="links-list">
+        <li>
+          <span class="link-label">📄 Sosiale medier-analyse – Canica-selskapene</span>
+          <a href="https://1drv.ms/w/c/d3b44e4ce3288a2f/IQDHKeuUfCvrSrJeOK9eIBUJAQTUG06HmSvuFEpTk3UX1Jk?e=INBDXs" class="link-url" target="_blank" onclick="window.open(this.href);return false;">Åpne dokument →</a>
+        </li>
+        <li>
+          <span class="link-label">📊 Sosiale medier-analyse – PPT-versjon</span>
+          <a href="https://1drv.ms/p/c/d3b44e4ce3288a2f/IQDmOfOODeipRqmv-HZdDYXxAUX8yoev4jWXoHpaxft8goc?e=J6ylo1" class="link-url" target="_blank" onclick="window.open(this.href);return false;">Åpne presentasjon →</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ANBEFALTE VERKTØY -->
+    <div class="section-header" style="margin-top:8px;">
+      <div class="section-label">Verktøy nevnt i seminaret</div>
+      <h2 class="section-title" style="font-size:26px;">Anbefalte startpunkter</h2>
+    </div>
+
+    <div class="card-grid thirds">
+      <div class="card">
+        <div class="card-accent"></div>
+        <h3>ChatGPT (Plus)</h3>
+        <p>Anbefalt startpunkt. ~200 kr/mnd. God minnehåndtering, Schedules/oppgaver, Custom GPTs, Projects. Kjenner deg godt over tid.</p>
+        <div style="margin-top:12px;">
+          <a href="https://chat.openai.com" class="link-url" target="_blank" onclick="window.open(this.href);return false;">chat.openai.com</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-accent"></div>
+        <h3>Claude (Anthropic)</h3>
+        <p>Svært sterk på koding, visualisering og lengre analyser. MCP-integrasjoner (Gmail, Drive). Brukes aktivt av Christine til datavisualisering og HTML.</p>
+        <div style="margin-top:12px;">
+          <a href="https://claude.ai" class="link-url" target="_blank" onclick="window.open(this.href);return false;">claude.ai</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-accent"></div>
+        <h3>NotebookLM</h3>
+        <p>Gratis. Last opp dokumenter, møtenotater og YouTube-videoer. Stiller spørsmål på tvers av kildene. Lager podcaster og visuelle fremstillinger.</p>
+        <div style="margin-top:12px;">
+          <a href="https://notebooklm.google.com" class="link-url" target="_blank" onclick="window.open(this.href);return false;">notebooklm.google.com</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-accent"></div>
+        <h3>Lovable</h3>
+        <p>Bygg web-prototyper med naturlig språk. Jernia-nettsideprototypen ble bygget her. Ingen kodeerfaring nødvendig.</p>
+        <div style="margin-top:12px;">
+          <a href="https://lovable.dev" class="link-url" target="_blank" onclick="window.open(this.href);return false;">lovable.dev</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-accent"></div>
+        <h3>Make.com</h3>
+        <p>Automatisering uten kode. Brukt til møtetranskripsjonspipeline: opptak → OneDrive → OpenAI Whisper → referat i innboksen.</p>
+        <div style="margin-top:12px;">
+          <a href="https://make.com" class="link-url" target="_blank" onclick="window.open(this.href);return false;">make.com</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-accent"></div>
+        <h3>Claude Code</h3>
+        <p>For de som vil bygge videre: terminalbasert AI-koding. Gjør det mulig å bygge automatiseringer og prosesser uten dyp kodebakgrunn.</p>
+        <div style="margin-top:12px;">
+          <a href="https://claude.ai/code" class="link-url" target="_blank" onclick="window.open(this.href);return false;">claude.ai/code</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="insight-box" style="margin-top:16px;">
+      <div class="ibox-label">Christines anbefaling</div>
+      <p style="font-size:16px;">«Begynn med ChatGPT. Kombiner med Claude etter hvert. Verktøyet er egentlig ikke det viktigste – det viktigste er at du begynner.»</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer style="background:#0d2240;color:rgba(202,220,252,0.5);text-align:center;padding:40px 20px;margin-top:0;font-size:12px;font-family:'DM Mono',monospace;letter-spacing:0.06em;">
+  <div style="margin-bottom:8px;color:#cadcfc;font-size:13px;font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;">Framework · FrAImework i samarbeid med Folkvard Consulting</div>
+  AI-seminar for Canica-selskapene · 25. mars 2026 · The Well, Sofiemyr
+</footer>
+
+<script>
+  function showTab(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.currentTarget.classList.add('active');
+    window.scrollTo({ top: document.querySelector('.tab-nav').offsetTop - 2, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
